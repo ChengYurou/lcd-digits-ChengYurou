@@ -1,23 +1,33 @@
-function convertNumArray(input){
-    var numArray = input.split("");
-    return numArray;
+function printLcdDigits(input) {
+    var newArray = convertNumArray(input);
+    var needPrintNumbers = buildPrintNumbers(newArray);
+    var lcdDigits = buildText(needPrintNumbers);
+
+    console.log(lcdDigits);
 }
 
-function buildPrintNums(numArray){
+function convertNumArray(input) {
+
+    return input.split("");
+}
+
+function buildPrintNumbers(numArray) {
     var digits = getDigits();
-    var needPrintNums = [];
-    numArray.forEach(function(num){
-       var existedDigit = findExistedDigit(num, digits);
-        needPrintNums.push(existedDigit);
+    var needPrintNumbers = [];
+
+    numArray.forEach(function (num) {
+        var existedDigit = findExistedDigit(num, digits);
+        needPrintNumbers.push(existedDigit);
     });
 
-    return needPrintNums;
+    return needPrintNumbers;
 }
 
-function findExistedDigit(num, digits){
+function findExistedDigit(num, digits) {
     var existedDigit;
-    digits.forEach(function(digit){
-        if(digit.name === num){
+
+    digits.forEach(function (digit) {
+        if (digit.name === num) {
             existedDigit = digit;
         }
     });
@@ -25,14 +35,29 @@ function findExistedDigit(num, digits){
     return existedDigit;
 }
 
-function printDigits(nums){
-    var row1 = '';
-    var row2 = '';
-    var row3 = '';
-    nums.forEach(function(num){
-        row1 += num.led[0] + ' ';
-        row2 += num.led[1] + ' ';
-        row3 += num.led[2] + ' ';
+function buildText(numbers) {
+    var strings = [];
+    var text = '\n';
+
+    for (var k = 0; k < numbers.length; k++) {
+        var string = '';
+
+        for (var i = 0; i < numbers[k].lcd.length; i++) {
+            string += (numbers[i].lcd[k] + ' ');
+
+            if (i > 1) {
+                string += '\n';
+            }
+        }
+        strings.push(string);
+
+    }
+
+    strings.forEach(function (stringItem) {
+        text += stringItem;
     });
-    console.log('\n'+row1+'\n'+row2+'\n'+row3+'\n');
+
+    return text;
 }
+
+
